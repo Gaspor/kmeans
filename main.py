@@ -2,6 +2,20 @@ import numpy as np
 from matplotlib import pyplot as plt
 from sklearn.cluster import KMeans
 
+
+def k_means(data, clusterNumber):
+    dotSizeCluster = 100
+
+    kmeans = KMeans(clusterNumber, init='k-means++', n_init=10, max_iter=300)
+    pred_y = kmeans.fit_predict(data)
+    plt.scatter(data[:, 1], data[:, 0], c=pred_y)
+    plt.xlim(0, 50)
+    plt.ylim(0, 50)
+    plt.grid()
+    plt.scatter(kmeans.cluster_centers_[:, 1], kmeans.cluster_centers_[:, 0], dotSizeCluster, c='red')
+    plt.show()
+
+
 dataset = np.array([[25,  4],
                     [22,  3],
                     [ 5,  9],
@@ -24,11 +38,6 @@ dataset = np.array([[25,  4],
                     [32,  2],
                     [14, 36]])
 
-kmeans = KMeans(n_clusters = 3, init = 'k-means++', n_init = 10, max_iter = 300)
-pred_y = kmeans.fit_predict(dataset)
-plt.scatter(dataset[:,1], dataset[:,0], c = pred_y)
-plt.xlim(0, 50)
-plt.ylim(0, 50)
-plt.grid()
-plt.scatter(kmeans.cluster_centers_[:,1],kmeans.cluster_centers_[:,0], s = 100, c = 'red')
-plt.show()
+clusters = 3
+
+k_means(dataset, clusters)
