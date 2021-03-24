@@ -7,6 +7,11 @@ endPlot = 200
 clusters = 3
 
 
+def main():
+    dataset = getDataSet(startPlot, endPlot, numberElements=20)
+    k_means(startPlot, endPlot, dataset, clusters)
+
+
 def k_means(start, end, data, clusterNumber):
     dotSize = 10
     dotSizeCluster = 25
@@ -29,5 +34,5 @@ def getDataSet(beginInterval, endInterval, numberElements):
     return setDataset
 
 
-dataset = getDataSet(startPlot, endPlot, numberElements = 20)
-k_means(startPlot, endPlot, dataset, clusters)
+if __name__ == '__main__':
+    main()
