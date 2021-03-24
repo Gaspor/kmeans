@@ -8,12 +8,13 @@ clusters = 3
 
 
 def k_means(start, end, data, clusterNumber):
+    dotSize = 10
     dotSizeCluster = 25
 
     kmeans = KMeans(clusterNumber, init='k-means++', n_init=10, max_iter=300)
     pred_y = kmeans.fit_predict(data)
 
-    plt.scatter(data[:, 0], data[:, 1], 10, c=pred_y)
+    plt.scatter(data[:, 0], data[:, 1], dotSize, c=pred_y)
     plt.scatter(kmeans.cluster_centers_[:, 0], kmeans.cluster_centers_[:, 1], dotSizeCluster, c='red')
 
     plt.xlim(start, end)
