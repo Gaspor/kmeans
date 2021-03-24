@@ -2,12 +2,12 @@ import numpy as np
 from matplotlib import pyplot as plt
 from sklearn.cluster import KMeans
 
-startPlot = 0
-endPlot = 200
-clusters = 3
-
 
 def main():
+    startPlot = 0
+    endPlot = 200
+    clusters = 3
+
     dataset = getDataSet(startPlot, endPlot, numberElements=20)
     k_means(startPlot, endPlot, dataset, clusters)
 
