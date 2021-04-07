@@ -5,8 +5,8 @@ from sklearn.cluster import KMeans
 
 def main():
     startPlot = 0
-    endPlot = 20000
-    Elements = 2500
+    endPlot = 2000
+    Elements = 250
 
     dataset = getDataSet(startPlot, endPlot, Elements)
     clusters = getClusters(Elements)
