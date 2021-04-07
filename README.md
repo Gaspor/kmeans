@@ -2,8 +2,8 @@
 
 ## Blibliotecas utilizadas:
   - [numpy](https://numpy.org/)
-  - [matplotlib](https://matplotlib.org/)
-  - [scikit-learn](https://scikit-learn.org/stable/)
+  - [matplotlib (pyplot)](https://matplotlib.org/)
+  - [scikit-learn (kmeans)](https://scikit-learn.org/stable/)
 
 ## :computer: Programadores:
   - :speech_balloon: Victor Amaral: [:computer: Github](https://github.com/Fri5Day)
