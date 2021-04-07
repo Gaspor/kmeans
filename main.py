@@ -5,10 +5,11 @@ from sklearn.cluster import KMeans
 
 def main():
     startPlot = 0
-    endPlot = 200
-    clusters = 3
+    endPlot = 20000
+    Elements = 2500
 
-    dataset = getDataSet(startPlot, endPlot, numberElements=20)
+    dataset = getDataSet(startPlot, endPlot, Elements)
+    clusters = getClusters(Elements)
     k_means(startPlot, endPlot, dataset, clusters)
 
 
@@ -16,7 +17,7 @@ def k_means(start, end, data, clusterNumber):
     dotSize = 10
     dotSizeCluster = 25
 
-    kmeans = KMeans(clusterNumber, init='k-means++', n_init=10, max_iter=300)
+    kmeans = KMeans(clusterNumber, init='k-means++', n_init=10, max_iter=1500, tol= 0.0004)
     pred_y = kmeans.fit_predict(data)
 
     plt.scatter(data[:, 0], data[:, 1], dotSize, c=pred_y)
@@ -32,6 +33,14 @@ def k_means(start, end, data, clusterNumber):
 def getDataSet(beginInterval, endInterval, numberElements):
     setDataset = np.random.randint(beginInterval, endInterval, (numberElements, 2))
     return setDataset
+
+
+def getClusters(elements):
+    numClusters = int((elements/100) * 20)
+    if numClusters > 20:
+        numClusters = 20
+
+    return numClusters
 
 
 if __name__ == '__main__':
