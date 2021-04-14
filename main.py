@@ -1,14 +1,16 @@
-import numpy as np
+import pandas as pd
 from matplotlib import pyplot as plt
 from sklearn.cluster import KMeans
 
 
 def main():
-    startPlot = 0
-    endPlot = 2000
-    Elements = 250
+    dataset = pd.read_csv(('model.txt'), sep="\t", usecols=[0, 1], names=['X', 'Y'])
+    df = pd.DataFrame(dataset, columns=['X', 'Y'])
 
-    dataset = getDataSet(startPlot, endPlot, Elements)
+    startPlot = (df['X'].min())-2 if df['X'].min() < df['Y'].min() else (df['Y'].min())-2
+    endPlot = (df['X'].max())+2 if df['X'].max() > df['Y'].max() else (df['Y'].max())+2
+    Elements = getElements()
+
     clusters = getClusters(Elements)
     k_means(startPlot, endPlot, dataset, clusters)
 
@@ -20,7 +22,7 @@ def k_means(start, end, data, clusterNumber):
     kmeans = KMeans(clusterNumber, init='k-means++', n_init=10, max_iter=1500, tol= 0.0004)
     pred_y = kmeans.fit_predict(data)
 
-    plt.scatter(data[:, 0], data[:, 1], dotSize, c=pred_y)
+    data.plot.scatter('X', 'Y', dotSize, c=pred_y, cmap='viridis')
     plt.scatter(kmeans.cluster_centers_[:, 0], kmeans.cluster_centers_[:, 1], dotSizeCluster, c='red')
 
     plt.xlim(start, end)
@@ -30,9 +32,13 @@ def k_means(start, end, data, clusterNumber):
     plt.show()
 
 
-def getDataSet(beginInterval, endInterval, numberElements):
-    setDataset = np.random.randint(beginInterval, endInterval, (numberElements, 2))
-    return setDataset
+def getElements():
+    elements = 0
+    with open("model.txt", "r") as f:
+        for line in f:
+            elements+=1
+
+    return elements
 
 
 def getClusters(elements):
