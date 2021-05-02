@@ -31,15 +31,6 @@ def k_means(start, end, data, clusterNumber):
     plt.show()
 
 
-def getElements():
-    elements = 0
-    with open("model.txt", "r") as f:
-        for line in f:
-            elements += 1
-
-    return elements
-
-
 def getClusters(dataset):
     distortions = []
     kCount = 0
