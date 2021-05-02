@@ -33,11 +33,11 @@ def k_means(start, end, data, clusterNumber):
 
 def getClusters(dataset):
     distortions = []
-    kCount = 0
+    kNumber = 1
     aux = 0
     K = range(1, 30)
     for k in K:
-        kmeanModel = KMeans(n_clusters=k)
+        kmeanModel = KMeans(n_clusters=k, init='random', max_iter=500)
         kmeanModel.fit(dataset)
         distortions.append(kmeanModel.inertia_)
 
@@ -45,9 +45,9 @@ def getClusters(dataset):
             aux = ((distortions[0] - distortions[1])/100) * 8
 
         if distortions[k - 2] - distortions[k - 1] > aux:
-            kCount = k
+            kNumber = k
 
-    return kCount
+    return kNumber
 
 
 if __name__ == '__main__':
