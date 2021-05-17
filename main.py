@@ -3,7 +3,7 @@ from matplotlib import pyplot as plt
 from sklearn.cluster import KMeans
 from sklearn.cluster import DBSCAN
 from sklearn.preprocessing import StandardScaler
-import numpy as np
+
 
 def main():
     dataset = pd.read_csv('model.txt', sep="\t", usecols=[0, 1], names=['X', 'Y'])
@@ -55,26 +55,11 @@ def getClusters(dataset):
 
 def dbscan(data):
     X = StandardScaler().fit_transform(data)
-    db = DBSCAN(eps=0.3, min_samples=10).fit(X)
-
-    core_samples_mask = np.zeros_like(db.labels_, dtype=bool)
-    core_samples_mask[db.core_sample_indices_] = True
+    db = DBSCAN(eps = 0.2, min_samples=6).fit(X)
     labels = db.labels_
 
-    unique_labels = set(labels)
-    colors = [plt.cm.Spectral(each) for each in np.linspace(0, 1, len(unique_labels))]
-
-    for k, col in zip(unique_labels, colors):
-        if k == -1:
-            col = [0, 0, 0, 1]
-
-    class_member_mask = (labels == k)
-
-    xy = X[class_member_mask & core_samples_mask]
-    plt.plot(xy[:, 0], xy[:, 1], 'o', markerfacecolor=tuple(col), markeredgecolor='k', markersize=6)
-
-    xy = X[class_member_mask & ~core_samples_mask]
-    plt.plot(xy[:, 0], xy[:, 1], 'o', markerfacecolor=tuple(col), markeredgecolor='k', markersize=6)
+    colors = list(map(lambda x: '#3b4cc0' if x == 1 else '#b40426', labels))
+    plt.scatter(X[:, 0], X[:, 1], c=colors, marker="o", picker=True)
 
     plt.grid()
     plt.show()
