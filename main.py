@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 from matplotlib import pyplot as plt
 from sklearn.cluster import KMeans
 from sklearn.cluster import DBSCAN
@@ -55,11 +56,11 @@ def getClusters(dataset):
 
 def dbscan(data):
     X = StandardScaler().fit_transform(data)
-    db = DBSCAN(eps = 0.2, min_samples=6).fit(X)
+    db = DBSCAN(eps = 0.289, min_samples=5).fit(X)
     labels = db.labels_
 
-    colors = list(map(lambda x: '#3b4cc0' if x == 1 else '#b40426', labels))
-    plt.scatter(X[:, 0], X[:, 1], c=colors, marker="o", picker=True)
+    color_list = np.array(['green', 'blue', 'red', 'yellow',  'orange',  'magenta', 'cyan', 'purple'])
+    plt.scatter(X[:, 0], X[:, 1], c=color_list[labels])
 
     plt.grid()
     plt.show()
